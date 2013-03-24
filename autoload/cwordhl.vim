@@ -55,7 +55,7 @@ function! s:load_sources()
 endfunction
 
 function! s:start_highlight()
-  if !get(g:, "cwordhl_enable", 0) || index(get(g:, 'cowrdhl_disable_file_type', []), &filetype) >= 0
+  if !get(g:, "cwordhl_enable", 0) || index(get(g:, 'cwordhl_disable_file_type', []), &filetype) >= 0
     return
   endif
   if !exists('w:auto_highlight_info')
