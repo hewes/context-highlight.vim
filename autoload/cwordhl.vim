@@ -63,6 +63,9 @@ function! s:start_highlight()
   endif
   for [item, value] in items(s:all_cword_highlights)
     for src in value.sources
+      if index(get(g:, 'cwordhl_enable_source_name', []), src.name) == -1
+        continue
+      endif
       let l:pattern = src.pattern()
       if !empty(l:pattern)
         let l:target = w:auto_highlight_info[item]

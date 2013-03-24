@@ -1,9 +1,10 @@
 
 let g:cwordhl_disable_file_type = ["", "unite", "txt", "tmp"]
 let g:cwordhl_enable = 1
+let g:cwordhl_enable_source_name = ["current_word", "matchit", "indent"]
 
 call cwordhl#start()
 
-highlight CurrentWord term=NONE ctermbg=52  ctermfg=NONE guibg=darkred
-highlight Indent      term=NONE ctermbg=238 ctermfg=NONE guibg=#444444 guifg=NONE
+highlight link CurrentWord MatchParen
+highlight link Indent      CursorColumn
 
