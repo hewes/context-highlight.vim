@@ -83,7 +83,10 @@ endfunction
 function! s:clear_highlight(kind)
   if exists('w:auto_highlight_info')
     if w:auto_highlight_info[a:kind].current_match_id >= 0
-      call matchdelete(w:auto_highlight_info[a:kind].current_match_id)
+      try
+        call matchdelete(w:auto_highlight_info[a:kind].current_match_id)
+      catch
+      endtry
       let w:auto_highlight_info[a:kind].current_match_id = -1
       let w:auto_highlight_info[a:kind].current_match_pattern = ''
     endif
