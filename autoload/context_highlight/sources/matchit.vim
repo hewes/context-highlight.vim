@@ -47,7 +47,7 @@ function! s:matchit_highlight.pattern()
   "return '.*\%(' . lcre . '\).*\&' . b:mwre . '\&\% (<\_[^>]\+>\|.*\)'
 endfunction
 
-function! cwordhl#sources#matchit#define()
+function! context_highlight#sources#matchit#define()
   return s:matchit_highlight
 endfunction
 

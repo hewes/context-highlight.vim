@@ -18,9 +18,9 @@ function! s:indent_highlight.pattern()
     return '^\zs\s\ze'
   endif
 endfunction
-call cwordhl#define_source(s:indent_highlight)
+call context_highlight#define_source(s:indent_highlight)
 
-function! cwordhl#sources#indent#define()
+function! context_highlight#sources#indent#define()
   return s:indent_highlight
 endfunction
 

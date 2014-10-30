@@ -4,11 +4,11 @@ set cpo&vim
 
 let s:all_cword_highlights = {}
 
-function! cwordhl#defined_sources()
+function! context_highlight#defined_sources()
   return s:all_cword_highlights
 endfunction
 
-function! cwordhl#define_source(src)
+function! context_highlight#define_source(src)
   if !has_key(s:all_cword_highlights, a:src.highlight)
     let s:all_cword_highlights[a:src.highlight] = {
           \ 'enable' : 1,
@@ -19,11 +19,11 @@ function! cwordhl#define_source(src)
   call sort(s:all_cword_highlights[a:src.highlight].sources, 's:compare_source')
 endfunction
 
-function! cwordhl#start()
+function! context_highlight#start()
   command! -bar ToggleCwordhl call s:toggle_auto_highlight()
   command! -bar StartCwordhl call s:start_highlight()
 
-  augroup cwordhl
+  augroup context_highlight
     autocmd!
     autocmd WinEnter,BufEnter * call s:check_enable_highlight_cword()
     autocmd CursorHold,CursorHoldI * call s:start_highlight()
@@ -48,14 +48,14 @@ function! s:init_window_auto_highlight()
 endfunction
 
 function! s:load_sources()
-  for define in map(split(globpath(&runtimepath, 'autoload/cwordhl/sources/*.vim'), '\n'),
-        \ "cwordhl#sources#{fnamemodify(v:val, ':t:r')}#define()")
-    call cwordhl#define_source(define)
+  for define in map(split(globpath(&runtimepath, 'autoload/context_highlight/sources/*.vim'), '\n'),
+        \ "context_highlight#sources#{fnamemodify(v:val, ':t:r')}#define()")
+    call context_highlight#define_source(define)
   endfor
 endfunction
 
 function! s:start_highlight()
-  if !get(g:, "cwordhl_enable", 0) || index(get(g:, 'cwordhl_disable_file_type', []), &filetype) >= 0
+  if !get(g:, "context_highlight_enable", 0) || index(get(g:, 'context_highlight_disable_file_type', []), &filetype) >= 0
     return
   endif
   if !exists('w:auto_highlight_info')
@@ -63,7 +63,7 @@ function! s:start_highlight()
   endif
   for [item, value] in items(s:all_cword_highlights)
     for src in value.sources
-      if index(get(g:, 'cwordhl_enable_source_name', []), src.name) == -1
+      if index(get(g:, 'context_highlight_enable_source_name', []), src.name) == -1
         continue
       endif
       let l:pattern = src.pattern()
@@ -94,12 +94,12 @@ function! s:clear_highlight(kind)
 endfunction
 
 function! s:toggle_auto_highlight()
-  let g:cwordhl_enable = !get(g:, "cwordhl_enable", 0)
+  let g:context_highlight_enable = !get(g:, "context_highlight_enable", 0)
   call s:check_enable_highlight_cword()
 endfunction
 
 function! s:check_enable_highlight_cword()
-  if !g:cwordhl_enable
+  if !g:context_highlight_enable
     for kind in keys(s:all_cword_highlights)
       call s:clear_highlight(kind)
     endfor

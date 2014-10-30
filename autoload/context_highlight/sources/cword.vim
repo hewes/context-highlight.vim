@@ -22,7 +22,7 @@ function! s:cword_highlight.pattern()
   endif
 endfunction
 
-function! cwordhl#sources#cword#define()
+function! context_highlight#sources#cword#define()
   return s:cword_highlight
 endfunction
 
